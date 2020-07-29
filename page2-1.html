@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Page2-1 </title>
+    <link rel="stylesheet" type="text/css" href="multiline.css">
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+</head>
+<body bgcolor="#F0F0E1">
+    <center>
+        <p>
+            <font size="6" face="Arial Black">
+                Life Expectancy (Male) By Country
+            </font>
+        </p>
+    </center>
+
+    <div class="chart-wrapper" id="chart-line1">
+        <p>
+            <font size="4" face="Arial">
+                Male life expectancy in the selected ten countries are rendered below. Note that most countries, especially those developed coutries, have a steady increase of life expectancy from year 2000 to year 2012. Also note the significant increase of life expectancy for Zimbabwe which indicate an improving health condition in that country. However, a significant decrease of life expectancy can also be observed for Iraq. 
+            </font>
+        </p>
+    </div>
+
+    <script src="multiline.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        d3.csv('../data/LifeYearCountry-Male.csv', function(error, data) {
+        data.forEach(function (d) {
+            d.Year = +d.Year;
+            d.Brazil = +d.Brazil;
+            d.China = +d.China;
+            d.Germany = +d.Germany;
+            d.India = +d.India;
+            d.Iraq = +d.Iraq;
+            d.Japan = +d.Japan;
+            d.RussianFederation = +d.RussianFederation;
+            d.Switzerland = +d.Switzerland;
+            d.UnitedStates = +d.UnitedStates;
+            d.Zimbabwe = +d.Zimbabwe;
+        });
+        var chart = makeLineChart(data, 'Year', {
+            'Brazil': {column: 'Brazil'},
+            'China': {column: 'China'},
+            'Germany': {column: 'Germany'},
+            'India': {column: 'India'},
+            'Iraq': {column: 'Iraq'},
+            'Japan': {column: 'Japan'},
+            'Russian': {column: 'RussianFederation'},
+            'Switzerland': {column: 'Switzerland'},
+            'United States': {column: 'UnitedStates'},
+            'Zimbabwe': {column: 'Zimbabwe'}
+        }, {xAxis: 'Years', yAxis: 'Life Expectancy (Male)'});
+        chart.bind("#chart-line1");
+        chart.render();
+        chart.annotation2_1();
+    });
+    </script>
+
+    <center>
+        <p></p>
+        <a class="button1" href="page1.html" style="margin-right: 200px">Previous</a>
+        <font size="3" face="Arial Black">
+                <a class="scene1" href="page2-1.html">Scene 2-1</a>
+                |
+                <a class="scene2" href="page2-2.html">Scene 2-2</a>
+                |
+                <a class="scene2" href="page2-3.html">Scene 2-3</a>
+            </font>
+        <a class="button1" href="page3-1.html" style="margin-left: 200px" >Next</a>
+    </center>
+</body>
+</html>
