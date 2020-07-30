@@ -14,12 +14,20 @@
                 World Mobility & Mortality During COVID-19
         </p>
     </center>
-    <div id="mobility"></div>
-    
+
+    <div class="chart-wrapper" id="chart-line1">
+        <div id="mobility"></div>
+        <p>
+            <font size="4" face="Arial">
+                Male life expectancy in the selected ten countries are rendered below. Note that most countries, especially those developed coutries, have a steady increase of life expectancy from year 2000 to year 2012. Also note the significant increase of life expectancy for Zimbabwe which indicate an improving health condition in that country. However, a significant decrease of life expectancy can also be observed for Iraq. 
+            </font>
+        </p>
+    </div>
+
     <script>
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    var margin = {top: 50, right: 50, bottom: 50, left: 50},
         width = 800 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
 
@@ -128,20 +136,11 @@
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave )
+        .bind("#chart-line1");
 
     })
 
     </script>
-
-
-    <div class="chart-wrapper" id="chart-line1">
-        <div id="chart-g1"></div>
-        <p>
-            <font size="4" face="Arial">
-                Male life expectancy in the selected ten countries are rendered below. Note that most countries, especially those developed coutries, have a steady increase of life expectancy from year 2000 to year 2012. Also note the significant increase of life expectancy for Zimbabwe which indicate an improving health condition in that country. However, a significant decrease of life expectancy can also be observed for Iraq. 
-            </font>
-        </p>
-    </div>
 
     <center>
         <p></p>
