@@ -1,51 +1,28 @@
 <!DOCTYPE html>
-<style>
-a:link, a:visited {
-  background-color: #ff6961;
-  color: white;
-  padding: 10px 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
+<link rel="stylesheet" href="styles.css">
 
-a:hover, a:active {
-  background-color: red;
-}
-
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-}
-
-</style>
 <html lang="en">
 <head>
-	<title> Page1 </title>
+	<title> index </title>
 </head>
-<body bgcolor="#F0F0E1">
+<body bgcolor="#FAFFF0">
     <div class="center">
         <center>
-            <p>
-                <font size="20" face="Arial Black">
-                LIFE EXPECTANCY
-                </font>
+            <p style="font-size:50px;font-family:Tahoma;color:#082E54;font-weight: bold">
+                COVID-19 DEATH ANALYSIS
             </p>
-            <p>
-                <font size="5" face="Arial Black">
-                Bin Feng
-                </font>
+            <p style="font-size:20px;font-family:Trebuchet MS;color:#082E54">
+                Jie Wen
             </p>
-            <p>
-                <font size="3" face="Arial">
-                    Created for CS498 Data Visualization
-                </font>
+            <p style="font-size:20px;font-family:Trebuchet MS;color:#082E54">
+                    CS498 Data Visualization Summer 2020
             </p> 
-            <a href="page2-1.html">Next</a>
+            <br>
+            <button class="button" style="vertical-align:middle" onclick="location.href='mobility.html'"><span>Start </span></button>
+             <br><br>
+            <p style="font-size:15px;font-family:Trebuchet MS;color:#082E54">
+                   Note: This is a continuation of my midterm project which studies the mobility and mortality rate during COVID-19. You can find it <a href="https://public.tableau.com/profile/jay5521#!/vizhome/proj_15923743266770/Dashboard1">here</a>. Here, we'll analyze relationships between mortality rate and more indexes.
+            </p> 
         </center>  
       </div>
 
