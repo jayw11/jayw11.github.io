@@ -14,40 +14,123 @@
                 World Mobility & Mortality During COVID-19
         </p>
     </center>
+    <div id="mobility"></div>
+    
+    <script>
 
-    <script src="multiline.js" charset="utf-8"></script>
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+        width = 800 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
-    <script type="text/javascript">
-        d3.csv('../data/LifeYearCountry-Male.csv', function(error, data) {
-        data.forEach(function (d) {
-            d.Year = +d.Year;
-            d.Brazil = +d.Brazil;
-            d.China = +d.China;
-            d.Germany = +d.Germany;
-            d.India = +d.India;
-            d.Iraq = +d.Iraq;
-            d.Japan = +d.Japan;
-            d.RussianFederation = +d.RussianFederation;
-            d.Switzerland = +d.Switzerland;
-            d.UnitedStates = +d.UnitedStates;
-            d.Zimbabwe = +d.Zimbabwe;
-        });
-        var chart = makeLineChart(data, 'Year', {
-            'Brazil': {column: 'Brazil'},
-            'China': {column: 'China'},
-            'Germany': {column: 'Germany'},
-            'India': {column: 'India'},
-            'Iraq': {column: 'Iraq'},
-            'Japan': {column: 'Japan'},
-            'Russian': {column: 'RussianFederation'},
-            'Switzerland': {column: 'Switzerland'},
-            'United States': {column: 'UnitedStates'},
-            'Zimbabwe': {column: 'Zimbabwe'}
-        }, {xAxis: 'Years', yAxis: 'Life Expectancy (Male)'});
-        chart.bind("#chart-g1");
-        chart.render();
-        chart.annotation2_1();
-    });
+    var svg = d3.select("#mobility")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+              
+    d3.csv("https://raw.githubusercontent.com/jayw11/jayw11.github.io/master/covid19.csv", function(data) {
+
+      var x = d3.scaleLinear()
+        .domain([-450, 350])
+        .range([ 0, width ]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+      svg.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " ," + 
+                               (height + margin.top + 20) + ")")
+          .style("text-anchor", "middle")
+          .text("Mobility");
+          
+      var y = d3.scaleLog()
+        .domain([1, 850])
+        .range([height,0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+      svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0 - margin.left)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Total Death Per Million");
+          
+      var color = d3.scaleOrdinal()
+        .domain(["Asia", "Oceania", "Africa", "NorthAmerica", "Europe", "SouthAmerica" ])
+        .range([ "#FFD700", "#4169E1", "#802A2A", "#7CFC00", "8A2BE2", "FF6347"])
+
+      var tooltip = d3.select("#mobility")
+        .append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "1px")
+        .style("border-radius", "5px")
+        .style("padding", "10px")
+        
+      var mouseover = function(d){
+        continents = d.continent
+        d3.selectAll(".dot")
+          .transition()
+          .duration(100)
+          .style("fill", "grey")
+          .attr("r", 3)
+
+        d3.selectAll("." + continents)
+          .transition()
+          .duration(100)
+          .style("fill", color(continents))
+          .attr("r", 7)
+          
+        tooltip
+          .html("Country Name: " + d.location)
+          .style("left", (d3.mouse(this)[0]+90) + "px") 
+          .style("top", (d3.mouse(this)[1]) + "px")
+          .style("opacity", 1)
+      }
+
+      var mouseleave = function(){
+        d3.selectAll(".dot")
+          .transition()
+          .duration(100)
+          .style("fill", "grey")
+          .attr("r", 5 )
+          
+        tooltip
+          .transition()
+          .duration(200)
+          .style("opacity", 0)
+      }
+        
+      var mousemove = function(d) {
+        tooltip
+          .html("Country Name: " + d.location)
+          .style("top", d3.select(this).attr("cy") + "px")
+            .style("left", d3.select(this).attr("cx") + "px")
+      }
+      
+      // Add dots
+      svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("class", function (d) { return "dot " + d.continent } )
+          .attr("cx", function (d) { return x(d.mobility); } )
+          .attr("cy", function (d) { return y(d.deaths_per_million); } )
+          .attr("r", 5)
+          .style("fill", function (d) { return color(d.continent) } )
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave )
+
+    })
+
     </script>
 
 
