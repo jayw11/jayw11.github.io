@@ -99,10 +99,10 @@ a.scene2:hover, a.scene2:active {
 }
 
 .chart-wrapper {
-    max-width: 950px;
-    min-width: 304px;
+    max-width: 10800px;
+    min-width: 300px;
     margin: 0 auto;
-    background-color: #edebe4;
+    background-color: #FAFFF0;
 }
 
 .chart-wrapper .inner-wrapper {
