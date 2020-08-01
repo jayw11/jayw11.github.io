@@ -55,6 +55,39 @@ a:hover, a:active {
   right: 0;
 }
 
+.button2 {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #082E54;
+  border: none;
+  color: #FAFFF0;
+  text-align: center;
+  font-size: 18px;
+  padding: 15px;
+  width:120px;
+  transition:  0s;
+  cursor: pointer;
+  margin-right: 50px;
+  margin-left: 50px;
+  outline:none
+}
+
+.button2 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.button2:hover span {
+  transition: 0.5s;
+  color: #FFFF00;
+}
+
+.button2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 .center {
     position: absolute;
     top: 50%;
@@ -99,7 +132,7 @@ a.scene2:hover, a.scene2:active {
 }
 
 .chart-wrapper {
-    max-width: 10800px;
+    max-width: 900px;
     min-width: 300px;
     margin: 0 auto;
     background-color: #FAFFF0;
@@ -203,4 +236,18 @@ a.scene2:hover, a.scene2:active {
 @media (max-width:500px){
     .chart-wrapper .line {stroke-width: 3px;}
     .chart-wrapper .legend {font-size: 14px;}
+}
+
+.tooltip { 
+    position: absolute;     
+    text-align: center;     
+    width: 80px;          
+    height: 28px;         
+    padding: 2px;       
+    font: 12px sans-serif; 
+    color: #FAFFF0;  
+    background: #082E54; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
 }
