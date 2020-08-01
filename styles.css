@@ -113,21 +113,21 @@ a.button1:hover, a.button1:active {
   background-color: red;
 }
 
-a.scene1:link, a.scene1:visited {
+a.checked:link, a.checked:visited {
   color: black;
   text-decoration: None;
 }
 
-a.scene1:hover, a.scene1:active {
+a.checked:hover, a.checked:active {
   text-decoration:underline;
 }
 
-a.scene2:link, a.scene2:visited {
+a.unchecked:link, a.unchecked:visited {
   color: gray;
   text-decoration: None;
 }
 
-a.scene2:hover, a.scene2:active {
+a.unchecked:hover, a.unchecked:active {
   text-decoration:underline;
 }
 
@@ -251,3 +251,15 @@ a.scene2:hover, a.scene2:active {
     border-radius: 8px;     
     pointer-events: none;     
 }
+
+.legend .tick text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 45px;
+        fill: #635F5D;
+        font-family: sans-serif;
+      }       

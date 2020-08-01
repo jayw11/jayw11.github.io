@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> gdp </title>
+    <title> GDP </title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <link rel="stylesheet" type="text/css" href="multiline.css"> -->
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 </head>
@@ -18,7 +17,7 @@
      <center>
     <div class="chart-wrapper" id="gdp">
         <p style="font-size:18px;font-family:Tahoma;color:#082E54">
-                 GDP and COVID-19 data is collected from ourworldindata.org. Similar to the midterm project, this scatter plot is color-coded by continent to have a better understanding about the case around the world. Mouseover event will bring a tooltip which shows the country name as well as highlight the corresponding continent. Annotations are given to continents.
+                 GDP PPP Per Capita and COVID-19 data is collected from ourworldindata.org. Similar to the midterm project, this scatter plot is color-coded by continent to have a better understanding about the case around the world. Mouseover event will bring a tooltip which shows the country name as well as highlight the corresponding continent.
         </p>
     </div>
      </center>
@@ -45,19 +44,19 @@
         .range([ 0, width ]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).tickValues([1000,5000,10000,50000,100000,170000]).tickFormat(d3.format(",.0f")));
       svg.append("text")             
           .attr("transform",
                 "translate(" + (width/2) + " ," + 
                                (height + margin.top + 20) + ")")
           .style("text-anchor", "middle")
-          .text("GDP (Log)");
+          .text("GDP PPP Per Capita (Log)");
           
       var y = d3.scaleLog()
         .domain([0.1, 850])
         .range([height,0]);
       svg.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y).tickValues([1,10,100,850]).tickFormat(d3.format(",.0f")));
       svg.append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 0 - margin.left)
@@ -68,7 +67,7 @@
           
       var color = d3.scaleOrdinal()
         .domain(["Asia", "Oceania", "Africa", "NorthAmerica", "Europe", "SouthAmerica" ])
-        .range([ "#FFD700", "#4169E1", "#802A2A", "#7CFC00", "8A2BE2", "FF6347"])
+        .range([ "#FFD700", "#4169E1", "#802A2A", "#7CFC00", "DA70D6", "FF6347"])
         
       var tooltip = d3.select("body").append("tooltip")   
         .attr("class", "tooltip")               
@@ -130,123 +129,112 @@
         .on("mouseleave", mouseleave )
 
     // add annotation
-    // svg
-    //   .append("line")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x1", x(130) )
-    //   .attr("x2", x(100) )
-    //   .attr("y1", function (d) { return y(15); } )
-    //   .attr("y2", function (d) { return y(50); } )
-    //   .attr("stroke", "grey")
-    //   .attr("stroke-dasharray", "4")
-    //   .style("opacity", 1);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(130))
-    //   .attr("y", function (d) { return y(10); } )
-    //   .text("European countries tend to have")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(130))
-    //   .attr("y", function (d) { return y(7); } )
-    //   .text("higher gdp & mortality rate.")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
+    svg
+      .append("line")
+      .attr("x1", function (d) { return x(1000); } )
+      .attr("x2", function (d) { return x(1000); } )
+      .attr("y1", function (d) { return y(0.1); } )
+      .attr("y2", function (d) { return y(0.1); } )
+      .style("opacity", 0)
+      .transition()
+      .duration(1500)
+      .attr("x1", function (d) { return x(1000); } )
+      .attr("x2", function (d) { return x(170000); } )
+      .attr("y1", function (d) { return y(0.1); } )
+      .attr("y2", function (d) { return y(850); } )
+      .attr("stroke", "grey")
+      .attr("stroke-dasharray", "4")
+      .style("opacity", 1);
 
-    // svg
-    //   .append("line")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x1", x(-100) )
-    //   .attr("x2", x(-50) )
-    //   .attr("y1", function (d) { return y(0.4); } )
-    //   .attr("y2", function (d) { return y(1); } )
-    //   .attr("stroke", "grey")
-    //   .attr("stroke-dasharray", "4")
-    //   .style("opacity", 1);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(-400))
-    //   .attr("y", function (d) { return y(0.3); } )
-    //   .text("Asian & African countries have average")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(-400))
-    //   .attr("y", function (d) { return y(0.2); } )
-    //   .text("gdp but varies on mortality rate.")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
+    svg
+      .append("text")
+      .attr("x", function (d) { return x(20000); } )
+      .attr("y", function (d) { return y(1); } )
+      .style("opacity", 0)
+      .transition()
+      .delay(1000)
+      .duration(1000)
+      .attr("x", function (d) { return x(20000); } )
+      .attr("y", function (d) { return y(1); } )
+      .text("Surpurisingly, wealthy countries tend")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54")
+      .style("opacity", 1.0);
+    svg
+      .append("text")
+      .attr("x", function (d) { return x(20000); } )
+      .attr("y", function (d) { return y(0.7); } )
+      .style("opacity", 0)
+      .transition()
+      .delay(1000)
+      .duration(1000)
+      .attr("x", function (d) { return x(20000); } )
+      .attr("y", function (d) { return y(0.7); } )
+      .text("to have higher mortality rate.")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54")
+      .style("opacity", 1.0);
 
 
-    // svg
-    //   .append("line")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x1", x(-230) )
-    //   .attr("x2", x(-200) )
-    //   .attr("y1", function (d) { return y(8); } )
-    //   .attr("y2", function (d) { return y(20); } )
-    //   .attr("stroke", "grey")
-    //   .attr("stroke-dasharray", "4")
-    //   .style("opacity", 1);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(-400))
-    //   .attr("y", function (d) { return y(6); } )
-    //   .text("American countries have low")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
-    // svg
-    //   .append("text")
-    //   .style("opacity", 0)
-    //   .transition()
-    //   .duration(1500)
-    //   .attr("x", x(-400))
-    //   .attr("y", function (d) { return y(4); } )
-    //   .text("gdp and high mortality rate.")
-    //   .style("font-size", "15px")
-    //   .style("font-family", "Trebuchet MS")
-    //   .attr("width",1)
-    //   .style("color", "#082E54")
-    //   .style("opacity", 1.0);
+       //color code
+    svg.append("rect").attr("x", 0).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#FFD700");
+    svg
+      .append("text").attr("x", 30).attr("y", 465).text("Asia")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
+    svg.append("rect").attr("x", 70).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#4169E1");
+    svg
+      .append("text").attr("x", 100).attr("y", 465).text("Oceania")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
+    svg.append("rect").attr("x", 170).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#802A2A");
+    svg
+      .append("text").attr("x", 200).attr("y", 465).text("Africa")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
+    svg.append("rect").attr("x", 250).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#7CFC00");
+    svg
+      .append("text").attr("x", 280).attr("y", 465).text("North America")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
+    svg.append("rect").attr("x", 390).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#DA70D6");
+    svg
+      .append("text").attr("x", 420).attr("y", 465).text("Europe")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
+    svg.append("rect").attr("x", 480).attr("y", 450)
+        .attr("width", 20).attr("height", 20).style("fill", "#FF6347");
+    svg
+      .append("text").attr("x", 510).attr("y", 465).text("South America")
+      .style("font-size", "15px")
+      .style("font-family", "Trebuchet MS")
+      .attr("width",1)
+      .style("fill", "#082E54");
+
     })
 
     </script>
@@ -255,13 +243,13 @@
         <p></p>
         <button class="button2" style="vertical-align:left" onclick="location.href='mobility.html'"><span>Previous </span></button>
         <font size="3" face="Arial Black">
-                <a class="scene1" href="mobility.html">Mobility</a>
+                <a class="unchecked" href="mobility.html">Mobility</a>
                 |
-                <a class="scene2" href="gdp.html">GDP</a>
+                <a class="checked" href="gdp.html">GDP</a>
                 |
-                <a class="scene2" href="page2-3.html">Scene 2-3</a>
+                <a class="unchecked" href="life.html">Life Expectancy</a>
             </font>
-       <button class="button2" style="vertical-align:right" onclick="location.href='gdp.html'"><span>Next </span></button>
+       <button class="button2" style="vertical-align:right" onclick="location.href='life.html'"><span>Next </span></button>
     </center>
 </body>
 </html>

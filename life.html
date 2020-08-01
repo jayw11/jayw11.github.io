@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> Mobility </title>
+    <title> Life Expectancy </title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
@@ -10,15 +10,15 @@
 <body bgcolor="#FAFFF0">
     <center>
         <p style="font-size:30px;font-family:Tahoma;color:#082E54;font-weight: bold">
-                World <span style="color: #FF9912;">Mobility</span> & Mortality During COVID-19
+                World <span style="color: #FF9912;">Life Expectancy</span> & Mortality During COVID-19
         </p>
     </center>
 
      <center>
-    <div class="chart-wrapper" id="mobility">
+    <div class="chart-wrapper" id="life">
         <p style="font-size:18px;font-family:Tahoma;color:#082E54">
-                The mobility report is conducted by Google while the COVID-19 data is collected from ourworldindata.org. Similar to the midterm project, this scatter plot is color-coded by continent to have a better understanding about the case around the world. Mouseover event will bring a tooltip which shows the country name as well as highlight the corresponding continent.
-                Annotations are based on continents. 
+                Life Expectancy and COVID-19 data is collected from ourworldindata.org. Similar to the midterm project, this scatter plot is color-coded by continent to have a better understanding about the case around the world. Mouseover event will bring a tooltip which shows the country name as well as highlight the corresponding continent.
+                
         </p>
     </div>
      </center>
@@ -30,7 +30,7 @@
         width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var svg = d3.select("#mobility")
+    var svg = d3.select("#life")
       .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -38,13 +38,10 @@
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
               
-    var legendRectSize = 18;                                  
-    var legendSpacing = 4;                                    
-
     d3.csv("https://raw.githubusercontent.com/jayw11/jayw11.github.io/master/covid19.csv", function(data) {
 
       var x = d3.scaleLinear()
-        .domain([-450, 350])
+        .domain([50, 90])
         .range([ 0, width ]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -54,7 +51,7 @@
                 "translate(" + (width/2) + " ," + 
                                (height + margin.top + 20) + ")")
           .style("text-anchor", "middle")
-          .text("Mobility");
+          .text("Life Expectancy");
           
       var y = d3.scaleLog()
         .domain([0.1, 850])
@@ -124,7 +121,7 @@
           .transition()
           .duration(1500)
           .attr("class", function (d) { return "dot " + d.continent } )
-          .attr("cx", function (d) { return x(d.mobility); } )
+          .attr("cx", function (d) { return x(d.life_expectancy); } )
           .attr("cy", function (d) { return y(d.deaths_per_million); } )
           .attr("r", 5);
 
@@ -133,33 +130,33 @@
         .on("mouseleave", mouseleave )
 
     // add annotation
-    svg
+     svg
       .append("line")
-      .attr("x1", x(100) )
-      .attr("x2", x(100) )
-      .attr("y1", function (d) { return y(50); } )
-      .attr("y2", function (d) { return y(50); } )
+      .attr("x1", function (d) { return x(60); } )
+      .attr("x2", function (d) { return x(60); } )
+      .attr("y1", function (d) { return y(0.1); } )
+      .attr("y2", function (d) { return y(0.1); } )
       .style("opacity", 0)
       .transition()
       .duration(1500)
-      .attr("x1", x(130) )
-      .attr("x2", x(100) )
-      .attr("y1", function (d) { return y(15); } )
-      .attr("y2", function (d) { return y(50); } )
+      .attr("x1", function (d) { return x(60); } )
+      .attr("x2", function (d) { return x(85); } )
+      .attr("y1", function (d) { return y(0.1); } )
+      .attr("y2", function (d) { return y(850); } )
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
       .style("opacity", 1);
     svg
       .append("text")
-      .attr("x", x(130))
-      .attr("y", function (d) { return y(10); } )
+      .attr("x", x(52) )
+      .attr("y", function (d) { return y(120); } )
       .style("opacity", 0)
       .transition()
       .delay(1000)
       .duration(1000)
-      .attr("x", x(130))
-      .attr("y", function (d) { return y(10); } )
-      .text("European countries tend to have")
+      .attr("x", x(52) )
+      .attr("y", function (d) { return y(120); } )
+      .text("Countries with higher life expectancy")
       .style("font-size", "15px")
       .style("font-family", "Trebuchet MS")
       .attr("width",1)
@@ -167,64 +164,15 @@
       .style("opacity", 1.0);
     svg
       .append("text")
-      .attr("x", x(130))
-      .attr("y", function (d) { return y(7); } )
+      .attr("x", x(52))
+      .attr("y", function (d) { return y(85); } )
       .style("opacity", 0)
       .transition()
       .delay(1000)
       .duration(1000)
-      .attr("x", x(130))
-      .attr("y", function (d) { return y(7); } )
-      .text("higher mobility & mortality rate.")
-      .style("font-size", "15px")
-      .style("font-family", "Trebuchet MS")
-      .attr("width",1)
-      .style("fill", "#082E54")
-      .style("opacity", 1.0);
-
-    svg
-      .append("line")
-      .attr("x1", x(-50) )
-      .attr("x2", x(-50) )
-      .attr("y1", function (d) { return y(1); } )
-      .attr("y2", function (d) { return y(1); } )
-      .style("opacity", 0)
-      .transition()
-      .duration(1500)
-      .attr("x1", x(-100) )
-      .attr("x2", x(-50) )
-      .attr("y1", function (d) { return y(0.4); } )
-      .attr("y2", function (d) { return y(1); } )
-      .attr("stroke", "grey")
-      .attr("stroke-dasharray", "4")
-      .style("opacity", 1);
-    svg
-      .append("text")
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(0.3); } )
-      .style("opacity", 0)
-      .transition()
-      .delay(1000)
-      .duration(1000)
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(0.3); } )
-      .text("Asian & African countries have average")
-      .style("font-size", "15px")
-      .style("font-family", "Trebuchet MS")
-      .attr("width",1)
-      .style("fill", "#082E54")
-      .style("opacity", 1.0);
-    svg
-      .append("text")
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(0.2); } )
-      .style("opacity", 0)
-      .transition()
-      .delay(1000)
-      .duration(1000)
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(0.2); } )
-      .text("mobility but varies on mortality rate.")
+      .attr("x", x(52))
+      .attr("y", function (d) { return y(85); } )
+      .text("also tend to have higher mortality rate.")
       .style("font-size", "15px")
       .style("font-family", "Trebuchet MS")
       .attr("width",1)
@@ -232,57 +180,7 @@
       .style("opacity", 1.0);
 
 
-    svg
-      .append("line")
-      .attr("x1", x(-200) )
-      .attr("x2", x(-200) )
-      .attr("y1", function (d) { return y(20); } )
-      .attr("y2", function (d) { return y(20); } )
-      .style("opacity", 0)
-      .transition()
-      .duration(1500)
-      .attr("x1", x(-230) )
-      .attr("x2", x(-200) )
-      .attr("y1", function (d) { return y(5); } )
-      .attr("y2", function (d) { return y(20); } )
-      .attr("stroke", "grey")
-      .attr("stroke-dasharray", "4")
-      .style("opacity", 1);
-    svg
-      .append("text")
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(5); } )
-      .style("opacity", 0)
-      .transition()
-      .delay(1000)
-      .duration(1000)
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(5); } )
-      .text("American countries have low")
-      .style("font-size", "15px")
-      .style("font-family", "Trebuchet MS")
-      .attr("width",1)
-      .style("fill", "#082E54")
-      .style("opacity", 1.0);
-    svg
-      .append("text")
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(3); } )
-      .style("opacity", 0)
-      .transition()
-      .delay(1000)
-      .duration(1000)
-      .attr("x", x(-400))
-      .attr("y", function (d) { return y(3); } )
-      .text("mobility and high mortality rate.")
-      .style("font-size", "15px")
-      .style("font-family", "Trebuchet MS")
-      .attr("width",1)
-      .style("fill", "#082E54")
-      .style("opacity", 1.0);
-    })
-    
-    //color code
+       //color code
     svg.append("rect").attr("x", 0).attr("y", 450)
         .attr("width", 20).attr("height", 20).style("fill", "#FFD700");
     svg
@@ -336,20 +234,21 @@
       .style("font-family", "Trebuchet MS")
       .attr("width",1)
       .style("fill", "#082E54");
+    })
 
     </script>
 
     <center>
         <p></p>
-        <button class="button2" style="vertical-align:left" onclick="location.href='index.html'"><span>Previous </span></button>
+        <button class="button2" style="vertical-align:left" onclick="location.href='gdp.html'"><span>Previous </span></button>
         <font size="3" face="Arial Black">
-                <a class="checked" href="mobility.html">Mobility</a>
+                <a class="unchecked" href="mobility.html">Mobility</a>
                 |
                 <a class="unchecked" href="gdp.html">GDP</a>
                 |
-                <a class="unchecked" href="life.html">Life Expectancy</a>
+                <a class="checked" href="life.html">Life Expectancy</a>
             </font>
-       <button class="button2" style="vertical-align:right" onclick="location.href='gdp.html'"><span>Next </span></button>
+       <button class="button2" style="vertical-align:right" onclick="location.href='index.html'"><span>Start Over </span></button>
     </center>
 </body>
 </html>
