@@ -113,29 +113,12 @@ a.button1:hover, a.button1:active {
   background-color: red;
 }
 
-a.checked:link, a.checked:visited {
-  color: black;
-  text-decoration: None;
-}
-
-a.checked:hover, a.checked:active {
-  text-decoration:underline;
-}
-
-a.unchecked:link, a.unchecked:visited {
-  color: gray;
-  text-decoration: None;
-}
-
-a.unchecked:hover, a.unchecked:active {
-  text-decoration:underline;
-}
-
 .chart-wrapper {
     max-width: 900px;
     min-width: 300px;
     margin: 0 auto;
     background-color: #FAFFF0;
+
 }
 
 .chart-wrapper .inner-wrapper {
