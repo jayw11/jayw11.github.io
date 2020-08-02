@@ -147,6 +147,23 @@
       .style("opacity", 1);
 
     svg
+      .append("line")
+      .attr("x1", function (d) { return x(15000); } )
+      .attr("x2", function (d) { return x(15000); } )
+      .attr("y1", function (d) { return y(7); } )
+      .attr("y2", function (d) { return y(7); } )
+      .style("opacity", 0)
+      .transition()
+      .duration(1500)
+      .attr("x1", function (d) { return x(15000); } )
+      .attr("x2", function (d) { return x(20000); } )
+      .attr("y1", function (d) { return y(7); } )
+      .attr("y2", function (d) { return y(1.5); } )
+      .attr("stroke", "grey")
+      .attr("stroke-dasharray", "4")
+      .style("opacity", 1);
+
+    svg
       .append("text")
       .attr("x", function (d) { return x(20000); } )
       .attr("y", function (d) { return y(1); } )

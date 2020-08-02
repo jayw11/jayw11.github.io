@@ -146,6 +146,24 @@
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
       .style("opacity", 1);
+
+     svg
+      .append("line")
+      .attr("x1", function (d) { return x(70); } )
+      .attr("x2", function (d) { return x(70); } )
+      .attr("y1", function (d) { return y(6); } )
+      .attr("y2", function (d) { return y(6); } )
+      .style("opacity", 0)
+      .transition()
+      .duration(1500)
+      .attr("x1", function (d) { return x(70); } )
+      .attr("x2", function (d) { return x(67); } )
+      .attr("y1", function (d) { return y(6); } )
+      .attr("y2", function (d) { return y(70); } )
+      .attr("stroke", "grey")
+      .attr("stroke-dasharray", "4")
+      .style("opacity", 1);
+
     svg
       .append("text")
       .attr("x", x(52) )
